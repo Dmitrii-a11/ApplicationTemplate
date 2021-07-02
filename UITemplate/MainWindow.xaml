@@ -4,9 +4,122 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UITemplate"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="SimplePathDataTemplate">
+            <Viewbox Width="25">
+                <Path Fill="#000000" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Path.Data >
+                        <GeometryGroup FillRule="Nonzero">
+                            <PathGeometry Figures="M3 19c-0.2 0-0.3 0-0.5-0.1C2.2 18.7 2 18.4 2 18V6c0-0.4 0.2-0.7 0.5-0.9c0.3-0.2 0.7-0.2 1 0l9 6     c0.3 0.2 0.4 0.5 0.4 0.8s-0.2 0.6-0.4 0.8l-9 6C3.4 18.9 3.2 19 3 19z M4 7.9v8.3l6.2-4.1L4 7.9z" FillRule="NonZero"/>
+                            <PathGeometry Figures="M12 19c-0.2 0-0.3 0-0.5-0.1C11.2 18.7 11 18.4 11 18V6c0-0.4 0.2-0.7 0.5-0.9c0.3-0.2 0.7-0.2 1 0l9 6     c0.3 0.2 0.4 0.5 0.4 0.8s-0.2 0.6-0.4 0.8l-9 6C12.4 18.9 12.2 19 12 19z M13 7.9v8.3l6.2-4.1L13 7.9z" FillRule="NonZero"/>
+                        </GeometryGroup>
+                    </Path.Data>
+                </Path>
+            </Viewbox>
+        </DataTemplate>
+        <Storyboard x:Key="OpenMenuStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SideMenuGrid" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="100"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenuStoryBoard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SideMenuGrid" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="35"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <!--<Style x:Key="OpenMenuButtonStyle">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Button.Click" >
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>-->
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Button.Click"  SourceName="OpenMenuButton">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
+            </EventTrigger.Actions>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="CloseMenuButton">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryBoard}"/>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="MenuBar" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top" >
+            <MenuItem Header="Файл" VerticalAlignment="Stretch" >
+                <MenuItem Header="Создать"/>
+                <MenuItem Header="Открыть"/>
+                <Separator/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="Руководство пользователя"/>
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="SideMenuGrid" Grid.Row="1" Grid.Column="0" Width="35"
+              HorizontalAlignment="Left" Margin="0,10,0,0" Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="OpenMenuButton" Content="|||" HorizontalAlignment="Right" Click="OpenMenuButton_Click">
+                <!--<Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>-->
+            </Button>
+            <Button x:Name="CloseMenuButton" Content="X" HorizontalAlignment="Right" Visibility="Hidden" Click="CloseMenuButton_Click"/>
+            <ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListViewItem IsSelected="True">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
+                        <TextBlock Text="Aaaaa" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal">
+                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
+                        <TextBlock Text="Bbbbb" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal">
+                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
+                        <TextBlock Text="Ccccc" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal">
+                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
+                        <TextBlock Text="Ddddd" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal">
+                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
+                        <TextBlock Text="Eeeee" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </Grid>
+        <ContentControl x:Name="StagesContentControl" Grid.Row="1" Margin="35,0,0,0">
+            <TextBlock Text="%CONTENT%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </ContentControl>
     </Grid>
 </Window>
