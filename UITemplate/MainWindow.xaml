@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UITemplate"
+        xmlns:views="clr-namespace:UITemplate.Pages.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <DataTemplate x:Key="SimplePathDataTemplate">
             <Viewbox Width="25">
@@ -30,15 +34,6 @@
                 <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="35"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <!--<Style x:Key="OpenMenuButtonStyle">
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Button.Click" >
-                    <EventTrigger.Actions>
-                        <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>-->
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="Button.Click"  SourceName="OpenMenuButton">
@@ -61,6 +56,7 @@
             <MenuItem Header="Файл" VerticalAlignment="Stretch" >
                 <MenuItem Header="Создать"/>
                 <MenuItem Header="Открыть"/>
+                <MenuItem Header="Сохранить"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>
             </MenuItem>
@@ -75,51 +71,26 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="OpenMenuButton" Content="|||" HorizontalAlignment="Right" Click="OpenMenuButton_Click">
-                <!--<Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Button.Triggers>-->
-            </Button>
+            <Button x:Name="OpenMenuButton" Content="|||" HorizontalAlignment="Right" Click="OpenMenuButton_Click"/>
             <Button x:Name="CloseMenuButton" Content="X" HorizontalAlignment="Right" Visibility="Hidden" Click="CloseMenuButton_Click"/>
-            <ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <ListViewItem IsSelected="True">
+            <ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="ListView_SelectionChanged"
+                      >
+                <ListViewItem IsSelected="True" x:Name="InputView">
                     <StackPanel Orientation="Horizontal">
                         <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Aaaaa" Margin="10,0,0,0"/>
+                        <TextBlock Text="Input" Margin="10,0,0,0"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem>
+                <ListViewItem x:Name="ResultView">
                     <StackPanel Orientation="Horizontal">
                         <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Bbbbb" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem>
-                    <StackPanel Orientation="Horizontal">
-                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Ccccc" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem>
-                    <StackPanel Orientation="Horizontal">
-                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Ddddd" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem>
-                    <StackPanel Orientation="Horizontal">
-                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Eeeee" Margin="10,0,0,0"/>
+                        <TextBlock Text="Result" Margin="10,0,0,0"/>
                     </StackPanel>
                 </ListViewItem>
             </ListView>
         </Grid>
-        <ContentControl x:Name="StagesContentControl" Grid.Row="1" Margin="35,0,0,0">
-            <TextBlock Text="%CONTENT%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ContentControl x:Name="PagesContentControl" Grid.Row="1" Margin="35,0,0,0"
+                        Content="{Binding SelectedView}">
         </ContentControl>
     </Grid>
 </Window>

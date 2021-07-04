@@ -36,5 +36,11 @@ namespace UITemplate
             OpenMenuButton.Visibility = Visibility.Visible;
             CloseMenuButton.Visibility = Visibility.Hidden;
         }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainViewModel mainViewModel = DataContext as MainViewModel;
+            mainViewModel.SelectedView = mainViewModel.ViewCollection[((ListViewItem)((ListView)sender).SelectedItem).Name];
+        }
     }
 }
