@@ -30,6 +30,39 @@ namespace UITemplate
         }
 
         private UserControl selectedView;
+
+        private RelayCommand showInputCommand;
+        private RelayCommand showResultCommand;
+
+        public RelayCommand ShowInputCommand
+        {
+            get
+            {
+                return showInputCommand ??= new RelayCommand(() =>
+                  {
+                      SelectedView = ViewCollection["InputView"];
+                  }, () =>
+                  {
+                      return ViewCollection.Keys.Contains("InputView");
+                  }
+                );
+            }
+        }
+
+        public RelayCommand ShowResultCommand
+        {
+            get
+            {
+                return showResultCommand ??= new RelayCommand(() =>
+                  {
+                      SelectedView = ViewCollection["ResultView"];
+                  }, () =>
+                  {
+                      return ViewCollection.Keys.Contains("ResultView");
+                  });
+            }
+        }
+
         public UserControl SelectedView
         {
             get => selectedView;

@@ -4,9 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UITemplate.Pages.Views"
+             xmlns:viewmodels="clr-namespace:UITemplate.Pages.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:InputViewModel/>
+    </UserControl.DataContext>
     <Grid>
-        <TextBlock Text="Input" FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding InputModel.Text}" VerticalAlignment="Top"/>
+        <TextBox x:Name="TestTextBox" Grid.Column="1" VerticalAlignment="Top" Text="{Binding InputModel.Text, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Column="0" Grid.Row="1" Content="Show"/>
     </Grid>
 </UserControl>
