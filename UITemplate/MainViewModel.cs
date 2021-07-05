@@ -14,13 +14,10 @@ namespace UITemplate
     {
         public MainViewModel()
         {
-            ViewCollection = new Dictionary<string, UserControl>()
-            {
-                { "InputView", new Pages.Views.InputUserControl()  },
-                { "ResultView", new Pages.Views.ResultUserControl() }
-            };
+            inputViewModel = new Pages.ViewModels.InputViewModel();
+            resultViewModel = new Pages.ViewModels.ResultViewModel();
 
-            selectedView = ViewCollection.First().Value;
+            selectedView = inputViewModel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,7 +26,10 @@ namespace UITemplate
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        private UserControl selectedView;
+        private object selectedView;
+
+        private Pages.ViewModels.InputViewModel inputViewModel;
+        private Pages.ViewModels.ResultViewModel resultViewModel;
 
         private RelayCommand showInputCommand;
         private RelayCommand showResultCommand;
@@ -40,10 +40,10 @@ namespace UITemplate
             {
                 return showInputCommand ??= new RelayCommand(() =>
                   {
-                      SelectedView = ViewCollection["InputView"];
+                      SelectedView = inputViewModel;
                   }, () =>
                   {
-                      return ViewCollection.Keys.Contains("InputView");
+                      return inputViewModel != null;
                   }
                 );
             }
@@ -55,25 +55,23 @@ namespace UITemplate
             {
                 return showResultCommand ??= new RelayCommand(() =>
                   {
-                      SelectedView = ViewCollection["ResultView"];
+                      SelectedView = resultViewModel;
                   }, () =>
                   {
-                      return ViewCollection.Keys.Contains("ResultView");
+                      return resultViewModel != null;
                   });
             }
         }
 
-        public UserControl SelectedView
+        public object SelectedView
         {
             get => selectedView;
 
-            set 
+            set
             {
                 selectedView = value;
                 OnProperryChanged("");
             }
         }
-
-        public Dictionary<string, UserControl> ViewCollection { get; }
     }
 }

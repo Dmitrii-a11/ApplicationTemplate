@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UITemplate"
         xmlns:views="clr-namespace:UITemplate.Pages.Views"
+        xmlns:viewmodels="clr-namespace:UITemplate.Pages.ViewModels"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
@@ -12,6 +13,12 @@
         <local:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:InputViewModel}">
+            <views:InputUserControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ResultViewModel}">
+            <views:ResultUserControl/>
+        </DataTemplate>
         <DataTemplate x:Key="SimplePathDataTemplate">
             <Viewbox Width="25">
                 <Path Fill="#000000" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -73,21 +80,6 @@
             </Grid.RowDefinitions>
             <Button x:Name="OpenMenuButton" Content="|||" HorizontalAlignment="Right" Click="OpenMenuButton_Click"/>
             <Button x:Name="CloseMenuButton" Content="X" HorizontalAlignment="Right" Visibility="Hidden" Click="CloseMenuButton_Click"/>
-            <!--<ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="ListView_SelectionChanged"
-                      >
-                <ListViewItem IsSelected="True" x:Name="InputView">
-                    <StackPanel Orientation="Horizontal">
-                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Input" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem x:Name="ResultView">
-                    <StackPanel Orientation="Horizontal">
-                        <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                        <TextBlock Text="Result" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </ListViewItem>
-            </ListView>-->
             <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Stretch" Background="AliceBlue">
                 <Button x:Name="ShowInputButton" HorizontalContentAlignment="Left"
                         Command="{Binding ShowInputCommand}">
