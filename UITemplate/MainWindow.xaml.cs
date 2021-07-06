@@ -27,14 +27,14 @@ namespace UITemplate
 
         private void OpenMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            CloseMenuButton.Visibility = Visibility.Visible;
-            OpenMenuButton.Visibility = Visibility.Hidden;
+            //CloseMenuButton.Visibility = Visibility.Visible;
+            //OpenMenuButton.Visibility = Visibility.Hidden;
         }
 
         private void CloseMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenMenuButton.Visibility = Visibility.Visible;
-            CloseMenuButton.Visibility = Visibility.Hidden;
+            //OpenMenuButton.Visibility = Visibility.Visible;
+            //CloseMenuButton.Visibility = Visibility.Hidden;
         }
     }
 }
