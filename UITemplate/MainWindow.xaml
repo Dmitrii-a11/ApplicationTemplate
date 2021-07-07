@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid x:Name="MainGrid" Background="#00000000" MouseDown="MainGrid_MouseDown">
+    <Grid x:Name="MainGrid" Background="#00000000" PreviewMouseDown="MainGrid_PreviewMouseDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>

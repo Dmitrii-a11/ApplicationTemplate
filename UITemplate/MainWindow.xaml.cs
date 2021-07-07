@@ -25,7 +25,7 @@ namespace UITemplate
             InitializeComponent();
         }
 
-        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MainGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             OpenCloseMenuToggleButton.IsChecked = false;
         }
