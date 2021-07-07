@@ -25,16 +25,9 @@ namespace UITemplate
             InitializeComponent();
         }
 
-        private void OpenMenuButton_Click(object sender, RoutedEventArgs e)
+        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //CloseMenuButton.Visibility = Visibility.Visible;
-            //OpenMenuButton.Visibility = Visibility.Hidden;
-        }
-
-        private void CloseMenuButton_Click(object sender, RoutedEventArgs e)
-        {
-            //OpenMenuButton.Visibility = Visibility.Visible;
-            //CloseMenuButton.Visibility = Visibility.Hidden;
+            OpenCloseMenuToggleButton.IsChecked = false;
         }
     }
 }

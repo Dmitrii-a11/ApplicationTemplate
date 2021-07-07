@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" Background="#00000000" MouseDown="MainGrid_MouseDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -52,7 +52,6 @@
                     </EventTrigger>
                 </ToggleButton.Triggers>
             </ToggleButton>
-            <Button x:Name="CloseMenuButton" Content="X" HorizontalAlignment="Right" Visibility="Hidden" Click="CloseMenuButton_Click"/>
             <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Stretch" Background="AliceBlue">
                 <Button x:Name="ShowInputButton" HorizontalContentAlignment="Left"
                         Command="{Binding ShowInputCommand}">
@@ -75,7 +74,6 @@
             </StackPanel>
         </Grid>
         <ContentControl x:Name="PagesContentControl" Grid.Row="1" Margin="35,0,0,0"
-                        Content="{Binding SelectedView}">
-        </ContentControl>
+                        Content="{Binding SelectedView}"/>
     </Grid>
 </Window>
