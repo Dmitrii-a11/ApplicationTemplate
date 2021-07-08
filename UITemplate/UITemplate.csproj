@@ -6,4 +6,32 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\menu-24.png" />
+    <None Remove="Assets\menu-mouseover24.png" />
+    <None Remove="Assets\minimize-window-24.png" />
+    <None Remove="Assets\minimize-window-mouseover-24.png" />
+    <None Remove="Assets\rounded-square-24.png" />
+    <None Remove="Assets\shutdown_24.png" />
+    <None Remove="Assets\shutdown_mouseover_24.png" />
+    <None Remove="Assets\square-24.png" />
+    <None Remove="Assets\square-mouseover-24.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\menu-24.png" />
+    <Resource Include="Assets\menu-mouseover24.png" />
+    <Resource Include="Assets\minimize-window-24.png" />
+    <Resource Include="Assets\minimize-window-mouseover-24.png" />
+    <Resource Include="Assets\rounded-square-24.png" />
+    <Resource Include="Assets\shutdown_24.png" />
+    <Resource Include="Assets\shutdown_mouseover_24.png" />
+    <Resource Include="Assets\square-24.png" />
+    <Resource Include="Assets\square-mouseover-24.png" />
+  </ItemGroup>
+
 </Project>

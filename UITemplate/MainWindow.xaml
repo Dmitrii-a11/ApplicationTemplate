@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UITemplate"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="800" WindowStyle="None"
+        x:Name="ApplicationWindow" AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
+        BorderThickness="1" BorderBrush="Black">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
@@ -15,6 +17,10 @@
                 <ResourceDictionary Source="ResourceDictionaries/DataTemplates/ModelViewResources.xaml"/>
                 <ResourceDictionary Source="ResourceDictionaries/DataTemplates/PathResources.xaml"/>
                 <ResourceDictionary Source="ResourceDictionaries/StoryBoards/StoryBoardResources.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/Styles/CloseButtonStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/Styles/Maximize_NormalButtonStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/Styles/MinimizeButtonStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/Styles/MenuButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -23,36 +29,68 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Menu x:Name="MenuBar" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top" >
-            <MenuItem Header="Файл" VerticalAlignment="Stretch" >
-                <MenuItem Header="Создать"/>
-                <MenuItem Header="Открыть"/>
-                <MenuItem Header="Сохранить"/>
-                <Separator/>
-                <MenuItem Header="Выход"/>
-            </MenuItem>
-            <MenuItem Header="Справка">
-                <MenuItem Header="Руководство пользователя"/>
-                <MenuItem Header="О программе"/>
-            </MenuItem>
-        </Menu>
+        <Grid Grid.Row="0" x:Name="HeaderGrid" Height="30" Background="#FFB6B6B6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="DragWindowBorder" Background="#FFB6B6B6" PreviewMouseLeftButtonDown="DragWindowBorder_PreviewMouseLeftButtonDown" BorderThickness="0"/>
+            <StackPanel x:Name="WindowButtonsStackPanel" Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="MinimizeWindowButton"
+                        Click="MinimizeWindowButton_Click"
+                        BorderThickness="0"
+                        Width="30"
+                        Height="30"
+                        Style="{StaticResource MinimizeButtonStyle}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Assets/minimize-window-24.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="Maximize_NormalWindowButton"
+                        Click="Maximize_NormalWindowButton_Click"
+                        BorderThickness="0"
+                        Width="30"
+                        Height="30"
+                        Style="{StaticResource Maximize_NormalButtonStyle}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Assets/rounded-square-24.png" Stretch="None"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="CloseWindowButton" Click="CloseWindowButton_Click"
+                        BorderThickness="0"
+                        Width="30"
+                        Height="30"
+                        Style="{StaticResource CloseButtonStyle}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Assets/shutdown_24.png" Stretch="None"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Grid>
         <Grid x:Name="SideMenuGrid" Grid.Row="1" Grid.Column="0" Width="35" VerticalAlignment="Stretch"
-              HorizontalAlignment="Left" Margin="0,10,0,0" Panel.ZIndex="1">
+              HorizontalAlignment="Left" Margin="0,0,0,0" Panel.ZIndex="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ToggleButton x:Name="OpenCloseMenuToggleButton" Content="||||" HorizontalAlignment="Left">
-                <ToggleButton.Triggers>
-                    <EventTrigger RoutedEvent="ToggleButton.Checked">
-                        <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                        <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryBoard}"/>
-                    </EventTrigger>
-                </ToggleButton.Triggers>
-            </ToggleButton>
             <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Stretch" Background="AliceBlue">
+                <ToggleButton x:Name="OpenCloseMenuToggleButton" HorizontalAlignment="Left"
+                              BorderThickness="0"
+                              Width="30"
+                              Height="30"
+                              Style="{StaticResource MenuButtonStyle}">
+                    <ToggleButton.Background>
+                        <ImageBrush ImageSource="Assets/menu-24.png"/>
+                    </ToggleButton.Background>
+                    <ToggleButton.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                            <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryBoard}"/>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                </ToggleButton>
                 <Button x:Name="ShowInputButton" HorizontalContentAlignment="Left"
                         Command="{Binding ShowInputCommand}">
                     <Button.Content>
@@ -73,7 +111,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ContentControl x:Name="PagesContentControl" Grid.Row="1" Margin="35,0,0,0"
+        <ContentControl x:Name="PagesContentControl" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0"
                         Content="{Binding SelectedView}"/>
     </Grid>
 </Window>
