@@ -29,12 +29,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" x:Name="HeaderGrid" Height="30" Background="#FFB6B6B6">
+        <Grid Grid.Row="0" x:Name="HeaderGrid" Height="30" Background="Gray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Border x:Name="DragWindowBorder" Background="#FFB6B6B6" PreviewMouseLeftButtonDown="DragWindowBorder_PreviewMouseLeftButtonDown" BorderThickness="0"/>
+            <Border x:Name="DragWindowBorder" Background="Gray" PreviewMouseLeftButtonDown="DragWindowBorder_PreviewMouseLeftButtonDown" BorderThickness="0"/>
             <StackPanel x:Name="WindowButtonsStackPanel" Grid.Column="1" Orientation="Horizontal">
                 <Button x:Name="MinimizeWindowButton"
                         Click="MinimizeWindowButton_Click"
@@ -73,15 +73,14 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Stretch" Background="AliceBlue">
+            <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Stretch" Background="Gray">
                 <ToggleButton x:Name="OpenCloseMenuToggleButton" HorizontalAlignment="Left"
                               BorderThickness="0"
-                              Width="30"
-                              Height="30"
-                              Style="{StaticResource MenuButtonStyle}">
-                    <ToggleButton.Background>
-                        <ImageBrush ImageSource="Assets/menu-24.png"/>
-                    </ToggleButton.Background>
+                              Width="35"
+                              Height="35">
+                    <ToggleButton.Content>
+                        <ContentPresenter ContentTemplate="{StaticResource MenuButtonDataTemplate}"/>
+                    </ToggleButton.Content>
                     <ToggleButton.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
@@ -95,8 +94,8 @@
                         Command="{Binding ShowInputCommand}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                            <TextBlock Text="Input" Margin="10,0,0,0"/>
+                            <ContentPresenter ContentTemplate="{StaticResource HomeButtonDataTemplate}"/>
+                            <TextBlock Text="Home" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -104,8 +103,8 @@
                         Command="{Binding ShowResultCommand}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <ContentPresenter ContentTemplate="{StaticResource SimplePathDataTemplate}"/>
-                            <TextBlock Text="Result" Margin="10,0,0,0"/>
+                            <ContentPresenter Margin="0,0,0,5" ContentTemplate="{StaticResource MailButtonDataTemplate}"/>
+                            <TextBlock Text="Mail" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>
