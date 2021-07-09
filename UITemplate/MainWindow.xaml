@@ -24,7 +24,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid x:Name="MainGrid" Background="#00000000" PreviewMouseDown="MainGrid_PreviewMouseDown">
+    <Grid x:Name="MainGrid" Background="#00000000">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -111,7 +111,14 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ContentControl x:Name="PagesContentControl" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0"
+        <Grid x:Name="BG"
+              Grid.Row="1"
+              Grid.Column="1" 
+              Margin="35,0,0,0"
+              PreviewMouseDown="BG_PreviewMouseDown"
+              Background="#00000000">
+            <ContentControl x:Name="PagesContentControl"
                         Content="{Binding SelectedView}"/>
+        </Grid>
     </Grid>
 </Window>

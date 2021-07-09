@@ -48,9 +48,9 @@ namespace UITemplate
             this.WindowState = WindowState.Minimized;
         }
 
-        private void MainGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void BG_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //OpenCloseMenuToggleButton.IsChecked = false;
+            OpenCloseMenuToggleButton.IsChecked = false;
         }
     }
 }
